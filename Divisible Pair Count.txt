@@ -1,0 +1,72 @@
+2.) Given an array of n integers and a value k. Count the number of pairs divisible by k(sum of pairs);
+
+//BRUTE FORCE APPROACH
+
+#include <stdio.h>
+
+int countDivisiblePairsBruteForce(int a[], int n, int k) {
+    int c = 0; 
+    for (int i = 0; i < n - 1; i++) {
+        for (int j = i + 1; j < n; j++) {
+            if ((a[i] + a[j]) % k == 0) {
+                c++;
+            }
+        }
+    }
+    return c;
+}
+
+int main() {
+    int a[8] = {5, -2, 10, 4, 9, 2, 25, 40}; // Given array
+    int n = sizeof(a) / sizeof(a[0]);
+    int k = 7; // Given divisor
+    int result = countDivisiblePairsBruteForce(a, n, k);
+    printf("Number of pairs with sum divisible by %d: %d\n", k, result);
+    return 0;
+}
+
+//Time complexity in both best case & worst case: O(n^2)
+________________________________________________________________________________________________
+
+//Optimized approach
+
+#include <stdio.h>
+#include <stdlib.h>
+
+int countPairs(int arr[], int n, int k) {
+    int *freqMap = (int *)calloc(k, sizeof(int));
+    int count = 0;
+
+    for (int i = 0; i < n; i++) {
+        int remainder = arr[i] % k;
+        if (remainder < 0) {
+            remainder += k;
+        }
+        freqMap[remainder]++;
+    }
+
+    for (int i = 1; i < k / 2; i++) {
+        count += freqMap[i] * freqMap[k - i];
+    }
+
+    count += (freqMap[0] * (freqMap[0] - 1)) / 2;
+    if (k % 2 == 0) {
+        count += (freqMap[k / 2] * (freqMap[k / 2] - 1)) / 2;
+    }
+
+    free(freqMap);
+    return count;
+}
+
+int main() {
+    int arr[] = {5, -2, 10, 4, 9, 2, 25, 40};
+    int n = sizeof(arr) / sizeof(arr[0]);
+    int k = 7;
+    int result = countPairs(arr, n, k);
+    printf("Number of pairs with sum divisible by %d: %d\n", k, result);
+    return 0;
+}
+
+//Time complexity: O(n + k)
+ -Best case : O(n) when k<n
+ -Worst case: O(n)
