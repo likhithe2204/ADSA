@@ -1,0 +1,40 @@
+3.) Given an array of n integers, count the number of equilibrium indices
+--> An index 'i' is said to be an equilibrium index if sum of elements at its left side is as same as sum of elements at its right side
+
+C CODE:
+
+#include <stdio.h>
+
+int countEquilibriumIndices(int arr[], int n) {
+    int totalSum = 0, leftSum = 0, count = 0;
+
+    for (int i = 0; i < n; i++) {
+        totalSum += arr[i];
+    }
+
+    for (int i = 0; i < n; i++) {
+        totalSum -= arr[i];
+
+        if (leftSum == totalSum) {
+            count++;
+        }
+
+        leftSum += arr[i];
+    }
+
+    return count;
+}
+
+int main() {
+    int arr[] = {3, -2, 4, 2, -1};
+    int n = sizeof(arr) / sizeof(arr[0]);
+
+    int result = countEquilibriumIndices(arr, n);
+    printf("Number of equilibrium indices: %d\n", result);
+
+    return 0;
+}
+
+//Time complexity:
+ - worst case: O(n)
+ - best case: O(n)
