@@ -1,0 +1,71 @@
+// Brute force APPROACH
+
+#include <stdio.h>
+
+int SquareRoot(int n) {
+    int i = 1, result = 1;
+    
+    // Loop to find the largest integer 'i' such that i * i <= n
+    while (i * i <= n) {
+        result = i;
+        i++;
+    }
+    
+    return result;
+}
+
+int main() {
+    int n;
+    
+    // Take user input for the number n
+    printf("Enter a number to find the square root (floor): ");
+    scanf("%d", &n);
+    
+    // Call the function and print the result
+    int sqrtResult = SquareRoot(n);
+    printf("The floor of the square root of %d is: %d\n", n, sqrtResult);
+    
+    return 0;
+}
+
+// Time Complexity: O(root n)- worst case
+// space complexity: O(1) 
+
+------------------------------------------------------------------------------------------------
+
+// Binary Search Approach:
+
+//Optimized Square Root (Using Binary Search) Code in C:
+
+#include <stdio.h>
+
+int SquareRootOpt(int n) {
+    int l = 1, h = n, m, res = 0;
+    
+    while (l <= h) {
+        m = l + (h - l) / 2;
+        if (m * m <= n) {
+            res = m;
+            l = m + 1;
+        } else {
+            h = m - 1;
+        }
+    }
+    
+    return res;
+}
+
+int main() {
+    int n;
+    
+    printf("Enter a number to find the square root (floor): ");
+    scanf("%d", &n);
+    
+    int sqrtResult = SquareRootOpt(n);
+    printf("The floor of the square root of %d is: %d\n", n, sqrtResult);
+    
+    return 0;
+}
+
+// Time Complexity: O(logn)- worst case
+// space complexity: O(1)
