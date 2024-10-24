@@ -1,0 +1,33 @@
+#include <stdio.h>
+int BinarySearch(int key, int arr[], int n) {
+    int l = 0, h = n - 1, m;
+    while (l <= h) {
+        m = l + (h - l) / 2;  // Calculate the mid-point
+        if (arr[m] == key) {
+            return m;  // Key found at index m
+        } 
+        else if (arr[m] < key) {
+            l = m + 1;  // Search in the right half
+        } 
+        else {
+            h = m - 1;  // Search in the left half
+        }
+    }
+    return -1;  // Key not found
+}
+int main() {
+    int arr[] = {10, 22, 35, 40, 45, 60, 75, 88, 99};  // Sorted array
+    int n = sizeof(arr) / sizeof(arr[0]);  // Calculate the size of the array
+    int key;
+    printf("Enter the element to search for: ");
+    scanf("%d", &key);
+    int result = BinarySearch(key, arr, n);
+    if (result != -1) {
+        printf("Element found at index: %d\n", result);
+    } else {
+        printf("Element not found in the array.\n");
+    }
+    return 0;
+}
+// Time Complexity: O(logn) - worst case& also Average case & O(1) - best case
+// Space Complexity: O(1) - no extra memory used 
