@@ -1,0 +1,48 @@
+// Binary Search in Recursive Approach
+
+C code:
+
+#include <stdio.h>
+
+int binarySearch(int a[], int l, int h, int key) {
+    if (l <= h) {
+        int m = l + (h - l) / 2;  // Calculate the middle element
+        
+        // Check if the key is at the middle
+        if (a[m] == key) {
+            return m;  // Return the index of the key
+        }
+        // If the key is greater than the middle element, search in the right half
+        else if (a[m] < key) {
+            return binarySearch(a, m + 1, h, key);
+        }
+        // If the key is smaller than the middle element, search in the left half
+        else {
+            return binarySearch(a, l, m - 1, key);
+        }
+    }
+    return -1;  // Return -1 if the key is not found
+}
+
+int main() {
+    int arr[] = {10, 22, 35, 40, 45, 60, 75, 88, 99};  // Sorted array
+    int n = sizeof(arr) / sizeof(arr[0]);  // Calculate the size of the array
+    int key;
+    
+    printf("Enter the element to search for: ");
+    scanf("%d", &key);
+    
+    int result = binarySearch(arr, 0, n - 1, key);
+    
+    if (result != -1) {
+        printf("Element found at index: %d\n", result);
+    } else {
+        printf("Element not found in the array.\n");
+    }
+    
+    return 0;
+}
+
+// Time Complexity:
+Best case - O(1)
+Worst Case - O(logn)
